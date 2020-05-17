@@ -1,0 +1,15 @@
+body {
+    padding-top: 5rem;
+}
+.main-title {
+    padding: 3rem 1.5rem;
+    text-align: center;
+}
+
+.sort .products-table .cart-info {
+    padding-bottom: 15px;
+}
+
+.cart-info {
+    text-align: right;
+}

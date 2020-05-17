@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Demo Store - Каталог</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/catalog">Каталог</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/cart" id="cartHolder">Корзина</a>
+      </li>
+    </ul>
+    <span class="navbar-brand mb-0" id="cityHolder"></span>
+    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#changeCityModal">Изменить город</button>
+  </nav>
+
+  <main role="main" class="container">
+    <div class="main-title">
+      <h1>Список товаров</h1>
+    </div>
+
+    <div class="sort">
+      <div class="form-group">
+        <label for="sortControl">Сортировка</label>
+        <select class="form-control" id="sortControl" onchange="sort(this.value)">
+          <option value="" selected disabled>Выберете способ сортировки</option>
+          <option value="modelAsc">По модели (по возрастанию)</option>
+          <option value="modelDesc">По модели (по убыванию)</option>
+          <option value="memoryAsc">По объему памяти (по возрастанию)</option>
+          <option value="memoryDesc">По объему памяти (по убыванию)</option>
+          <option value="priceAsc">По цене (по возрастанию)</option>
+          <option value="priceDesc">По цене (по убыванию)</option>
+        </select>
+      </div>
+    </div>
+
+    <table class="table table-bordered products-table">
+      <thead>
+      <tr>
+        <th scope="col">Модель</th>
+        <th scope="col">Память (GB)</th>
+        <th scope="col">Цена ($)</th>
+        <th scope="col"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="phone : ${phones}">
+        <td th:text="${phone.model}"></td>
+        <td th:text="${phone.memory}"></td>
+        <td th:text="${phone.price}"></td>
+        <td>
+          <button th:value="${phone.id}" type="button" class="btn btn-info" onclick="addToShoppingCart(this.value)">Добавить в корзину</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </main>
+
+  <!-- Modal -->
+  <div class="modal fade" id="changeCityModal" tabindex="-1" role="dialog" aria-labelledby="changeCityModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="changeCityModalLabel">Выберете город</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="cityControl">Город</label>
+            <select class="form-control" id="cityControl">
+              <option value="Moscow">Moscow</option>
+              <option value="Saint-Petersburg">Saint-Petersburg</option>
+              <option value="Perm">Perm</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+          <button type="button" class="btn btn-info" onclick="updateCity()">Обновить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <script th:src="@{/script/main.js}"></script>
+  <script th:src="@{/script/jquery-cookie/jquery.cookie.js}"></script>
+</body>
+</html>
